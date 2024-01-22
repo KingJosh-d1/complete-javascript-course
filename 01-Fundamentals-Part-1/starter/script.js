@@ -151,4 +151,183 @@ if (birthYear <= 2000) {
     century = 21;
 }
 console.log(century);
+
+const massMark = 78;
+const heightMark = 1.69;
+const massJohn = 92;
+const heightJohn = 1.95;
+
+const BMIMark = massMark / (heightMark * heightMark);
+const BMIJohn = massJohn / (heightJohn * heightJohn);
+console.log(BMIMark, BMIJohn);
+
+// Write your code below. Good luck! 🙂 
+
+let higherBMI;
+if(BMIMark > BMIJohn) {
+    higherBMI = `Mark's BMI (${BMIMark}) is higher than John's (${BMIJohn})!`;
+    console.log(higherBMI)
+} else {
+    higherBMI = `John's BMI (${BMIJohn}) is higher than Mark's (${BMIMark})!`;
+    console.log(higherBMI)
+}
+
+// type conversion
+const inputYear = '1991';
+console.log(number(inputYear), inputYear);
+console.log(Number(inputYear) + 18);
+
+console.log(Number('Jonas')); // Nan invalid number
+console.log(typeof NaN);
+
+console.log(String(23));
+
+// type coercion
+console.log('I am' + 23 + 'years old'); // + numbers are converted to strings
+console.log('23' - '10' - 3); // - strings are converted to numbers
+console.log('23' * '2') // * and / strings are converted to numbers
+
+
+// 5 falsy values: 0, '', undefined, null, NaN -> False also
+
+console.log(Boolean(0));
+console.log(Boolean(undefined));
+console.log(Boolean("Jonas"));
+console.log(Boolean({}));
+console.log(Boolean(''));
+
+const money = 100;
+if(money) {
+    console.log("Don't spend it all ;)");
+} else {
+    console.log('You should get a job!');
+}
+
+let height = 0;
+if (height) {
+    console.log('YAY! Height is defined');
+} else {
+    console.log("Height is UNDEFINED");
+}
+
+const age = 18;
+if(age === 18) console.log('You just became an adult :D (strict)');
+
+if(age == 18) console.log('You just became an adult :D (loose)');
+
+const favourite = Number(prompt("What's your favourite number?"));
+console.log(favourite);
+console.log(typeof favourite);
+
+if (favourite === 23) {
+    console.log('Cool! 23 is an amazing number!')
+} else if (favourite === 7) {
+    console.log('7 is also a cool number')
+} else if (favourite === 9) {
+    console.log('9 is also a cool number') 
+} else {
+    console.log('Number is not 23 or 7 or 9')
+}
+
+if (favourite !== 23) console.log('why not 23?');
+
+const hasDriversLicense = true; // A
+const hasGoodVision = true; // B
+
+console.log(hasDriversLicense && hasGoodVision);
+console.log(hasDriversLicense || hasGoodVision);
+console.log(!hasDriversLicense);
+
+// if (hasDriversLicense && hasGoodVision && !isTired) {
+//     console.log('Sarah is able to drive!');
+// } else {
+//     console.log('Someone else should drive...')
+// }
+const isTired = false; // C
+console.log(hasDriversLicense && hasGoodVision && isTired);
+
+if (hasDriversLicense && hasGoodVision && !isTired) {
+    console.log('Sarah is able to drive!');
+} else {
+    console.log('Someone else should drive...');
+}
+
+const scoreDolphins = (96 + 108 + 89) / 3;
+const scoreKoalas = (88, 91, 110) / 3;
+
+if (scoreDolphins > scoreKoalas) {
+    console.log("Dolphins win the trophy");
+} else if (scoreDolphins < scoreKoalas) {
+    console.log("Koalas win the trophy");
+} else if (scoreKoalas === scoreDolphins) {
+    console.log("Both win the trophy");
+} else {
+    console.log("Okayyyy")
+}
+
+const day = 'saturday';
+
+switch(day) {
+    case 'monday': // day === 'monday'
+        console.log('Plan course structure');
+        console.log('Go to coding meetup');
+        break;
+    case 'tuesday':
+        console.log('Prepare theory videos');
+        break;
+    case 'wednesday':
+    case 'thursday':
+        console.log('write code examples');
+        break;
+    case 'friday':
+        console.log('Record videos');
+        break;
+    case 'saturday':
+    case 'sunday':
+        console.log('Enjoy the weekend :D')
+        break;
+    default:
+        console.log('Not a valid day');
+}
+
+if (day === 'monday') {
+    console.log('Plan course structure');
+    console.log('Go to coding meetup');
+} else if (day === 'tuesday') {
+    console.log('Prepare theory videos');
+} else if (day === 'wednesday' || day === 'thursday') {
+    console.log('write code examples');
+} else if (day === 'friday') {
+    console.log('Record videos');
+} else if (day === 'saturday' || day === 'sunday') {
+    console.log('Enjoy the weekend :D');
+} else {
+    console.log('Not a valid day!');
+}
+
+3 + 4 -> Expression
+1991 -> Expression
+true && false && !false -> Expression
+if-else statement and switch statement -> Statement
 */
+
+// conditionals -> if-else, switch, and conditional Operator
+
+const age = 23;
+// age >= 18 ? console.log('I like to drink wine 🍷') :
+// console.log('I like to drink water 💧');
+
+// if age is greater than or equals to 18 log ... to console else log ... to console
+
+const drink = age >= 18 ? 'wine 🍷' : 'water 💧';
+console.log(drink);
+
+let drink2;
+if (age >= 18) {
+    drink2 = 'wine 🍷';
+} else {
+    drink2 = 'water 💧';
+}
+console.log(drink2);
+
+console.log(`I like to drink ${age >= 18 ? 'wine 🍷' : 'water 💧'}`)
