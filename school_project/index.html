@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Techsphere</title>
+    <link rel="icon" type="image/x-icon" href="img/tab.jpeg" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      /* Nav*/
+      header {
+        background-color: #ffffff;
+        border-bottom: 1px solid #eaeaea;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .navbar-logo img {
+        height: 40px;
+        object-fit: contain;
+      }
+
+      .navbar-menu {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        transition: max-height 0.3s ease;
+      }
+
+      .navbar-menu li {
+        font-size: 16px;
+      }
+
+      .navbar-menu a {
+        text-decoration: none;
+        color: #000;
+        text-transform: uppercase;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .navbar-menu a:hover {
+        color: #008080;
+      }
+
+      .navbar-icons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .navbar-icons .icon {
+        font-size: 18px;
+        color: #000;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .navbar-icons .icon:hover {
+        color: #008080;
+      }
+
+      /* Hamburger Button */
+      .hamburger {
+        display: none;
+        font-size: 24px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #000;
+      }
+
+      .hamburger:focus {
+        outline: none;
+      }
+
+      @media (max-width: 768px) {
+        .navbar-menu {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 70px;
+          right: 0;
+          background-color: #fff;
+          border: 1px solid #eaeaea;
+          width: 100%;
+        }
+
+        .navbar-menu.open {
+          display: flex;
+        }
+
+        .navbar {
+          justify-content: space-between;
+        }
+
+        .hamburger {
+          display: block;
+        }
+      }
+
+      /* Form Styling */
+      form {
+        max-width: 500px;
+        margin: 30px auto;
+        padding: 20px;
+        border: 1px solid #eaeaea;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+      }
+
+      form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      form input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      form input[type="submit"] {
+        background-color: #008080;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      form input[type="submit"]:hover {
+        background-color: #016363;
+      }
+
+      /* bestätigungsnachricht */
+      .confirmation-message {
+        max-width: 500px;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #e0f7e9;
+        border: 1px solid #a4d4b8;
+        border-radius: 8px;
+        color: #217a50;
+        display: none; /* versteckt default */
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="navbar-logo">
+          <a href="#">
+            <img src="img/logo.png" alt="Logo" />
+          </a>
+        </div>
+        <button class="hamburger" aria-label="Toggle navigation">☰</button>
+        <ul class="navbar-menu">
+          <li><a href="#samsung">Samsung</a></li>
+          <li><a href="#iphone">IPhone</a></li>
+          <li><a href="#refurbished">Refurbished</a></li>
+          <li><a href="#reinigung">Reinigung</a></li>
+          <li><a href="#sale">Sale</a></li>
+        </ul>
+        <div class="navbar-icons">
+          <a href="#suchen" class="icon">🔍</a>
+          <a href="#account" class="icon">👤</a>
+          <a href="#einkaufwagen" class="icon">🛒</a>
+        </div>
+      </nav>
+    </header>
+
+    <form id="orderForm">
+      <label for="fname">Vorname:</label>
+      <input type="text" id="fname" name="fname" required />
+
+      <label for="lname">Name:</label>
+      <input type="text" id="lname" name="lname" required />
+
+      <label for="email">Deine E-mail:</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="address">Deine Addresse:</label>
+      <input type="text" id="address" name="address" required />
+
+      <label for="quantity">Anzahl der Handys:</label>
+      <input
+        type="number"
+        id="quantity"
+        name="quantity"
+        min="1"
+        max="20"
+        required
+      />
+
+      <div class="price-display" id="totalPrice">Preis: 500 €</div>
+      <br />
+
+      <input type="submit" value="Bestellen" />
+    </form>
+
+    <div class="confirmation-message" id="confirmationMessage">
+      Vielen Dank für Ihre Bestellung! Wir werden Sie bald kontaktieren.
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const hamburger = document.querySelector(".hamburger");
+        const navbarMenu = document.querySelector(".navbar-menu");
+        const orderForm = document.querySelector("#orderForm");
+        const confirmationMessage = document.querySelector(
+          "#confirmationMessage"
+        );
+        const quantityInput = document.querySelector("#quantity");
+        const totalPriceDisplay = document.querySelector("#totalPrice");
+
+        // Default preis
+        const pricePerItem = 500;
+
+        //preis nach anzahl ändern
+        quantityInput.addEventListener("input", () => {
+          const quantity = parseInt(quantityInput.value) || 1;
+          const totalPrice = pricePerItem * quantity;
+          totalPriceDisplay.textContent = `Preis: ${totalPrice} €`;
+        });
+
+        // hamburger menu
+        hamburger.addEventListener("click", () => {
+          navbarMenu.classList.toggle("open");
+        });
+
+        // form abgebung und so
+        orderForm.addEventListener("submit", (event) => {
+          event.preventDefault(); // muss man halt immer machen
+          confirmationMessage.style.display = "block"; // Bestätigungsnachricht anzeigen
+          window.scrollTo(0, 0); // Scrollt nach oben, um die Nachricht deutlich anzuzeigen
+          orderForm.reset(); // Zurücksetzen der forms
+          totalPriceDisplay.textContent = `Preis: 500 €`; // preis default
+        });
+      });
+    </script>
+  </body>
+</html>
