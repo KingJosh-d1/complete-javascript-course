@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Techsphere - Homepage</title>
+    <title>Techsphere - Reinigung</title>
     <style>
       /* Navbar Styles */
       body {
@@ -65,34 +65,18 @@
       }
       /* Hero Section */
       .hero {
-        background: url("img/hero-bg.jpg") no-repeat center center/cover;
-        color: white;
+        background: url("img/reinigung.jpg") no-repeat center center/cover;
         text-align: center;
         padding: 180px 20px;
+        color: white;
       }
-
       .hero h1 {
         font-size: 2.5rem;
-        margin-bottom: 20px;
+        margin: 0;
       }
-
       .hero p {
         font-size: 1.2rem;
-        margin-bottom: 30px;
-      }
-
-      .hero a {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #008080;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-      }
-
-      .hero a:hover {
-        background-color: #016363;
+        margin: 10px 0;
       }
       /* Products Section */
       .products {
@@ -206,27 +190,29 @@
 
     <!-- Hero Section -->
     <section class="hero">
-      <h1>Willkommen bei Techsphere</h1>
-      <p>Finden Sie die besten Angebote für Ihre Lieblingsprodukte.</p>
-      <a href="sale.html">Jetzt entdecken</a>
+      <h1>Reinigungsprodukte</h1>
+      <p>Pflegen Sie Ihre Geräte mit hochwertigen Reinigungsprodukten.</p>
     </section>
 
     <!-- Products Section -->
     <section class="products">
-      <div class="product" data-name="Samsung Galaxy S23" data-price="500">
-        <img src="img/samsung.jpg" alt="Samsung Galaxy S23" />
-        <h3>Samsung Galaxy S23</h3>
+      <div class="product">
+        <img src="img/cleaning-spray.jpg" alt="Cleaning Spray" />
+        <h3>Gerätespray</h3>
         <button onclick="addToCart(this)">In den Warenkorb</button>
       </div>
-      <div class="product" data-name="iPhone 14" data-price="800">
-        <img src="img/iphone.jpg" alt="iPhone 14" />
-        <h3>iPhone 14</h3>
+      <div class="product">
+        <img src="img/microfiber-cloth.jpg" alt="Microfiber Cloth" />
+        <h3>Mikrofasertücher</h3>
         <button onclick="addToCart(this)">In den Warenkorb</button>
       </div>
-      <!-- More Products -->
+      <div class="product">
+        <img src="img/keyboard-cleaner.jpg" alt="Keyboard Cleaner" />
+        <h3>Tastaturreiniger</h3>
+        <button onclick="addToCart(this)">In den Warenkorb</button>
+      </div>
     </section>
 
-    <!-- Modal -->
     <div class="modal" id="cart-modal">
       <div class="modal-content">
         <h2>Ihr Warenkorb</h2>
@@ -237,42 +223,48 @@
     </div>
 
     <script>
-      let cart = [];
+      // Initialize the cart on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        updateCartDisplay();
+      });
 
-      function addToCart(button) {
-        const product = button.closest(".product");
-        const name = product.dataset.name;
-        const price = parseFloat(product.dataset.price);
-
-        cart.push({ name, price });
-        document.getElementById("cart-count").textContent = cart.length;
-        alert(`${name} wurde zum Warenkorb hinzugefügt!`);
+      // Function to add an item to the cart
+      function addToCart(itemName, price) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.push({ item: itemName, price: price });
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartDisplay();
+        alert(`${itemName} wurde zum Warenkorb hinzugefügt!`);
       }
 
-      function openCart() {
-        const cartModal = document.getElementById("cart-modal");
-        const cartItems = document.getElementById("cart-items");
-        cartItems.innerHTML = "";
-
-        if (cart.length === 0) {
-          cartItems.innerHTML = "<li>Warenkorb ist leer.</li>";
-        } else {
-          cart.forEach((item, index) => {
-            cartItems.innerHTML += `<li>${item.name} - ${item.price}€</li>`;
-          });
+      // Function to update the cart icon and count
+      function updateCartDisplay() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartCount = cart.length;
+        const cartIcon = document.getElementById("cart-count");
+        if (cartIcon) {
+          cartIcon.textContent = cartCount; // Update the cart count display
         }
-
-        cartModal.style.display = "flex";
       }
 
-      function closeCart() {
-        document.getElementById("cart-modal").style.display = "none";
+      // Function to display the cart contents
+      function showCart() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let cartDetails = cart
+          .map((item, index) => `${index + 1}. ${item.item} - ${item.price}€`)
+          .join("\n");
+        cartDetails = cartDetails || "Ihr Warenkorb ist leer.";
+        alert(`Warenkorb:\n\n${cartDetails}`);
       }
 
-      function purchase() {
-        window.location.href = "order.html";
+      // Function to clear the cart (for example, after purchase)
+      function clearCart() {
+        localStorage.removeItem("cart");
+        updateCartDisplay();
+        alert("Vielen Dank für Ihren Einkauf! Der Warenkorb wurde geleert.");
       }
     </script>
+
     <footer style="text-align: center">
       <p>&copy; 2024 Techsphere. Alle Rechte vorbehalten.</p>
     </footer>

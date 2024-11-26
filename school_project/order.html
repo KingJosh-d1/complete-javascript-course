@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bestellung - Techsphere</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        max-width: 500px;
+        width: 100%;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .btn {
+        display: inline-block;
+        width: 100%;
+        background: #4caf50;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      .btn:hover {
+        background: #45a049;
+      }
+      #orderConfirmation {
+        margin-top: 20px;
+        padding: 15px;
+        background: #e8f5e9;
+        border: 1px solid #4caf50;
+        border-radius: 5px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Bestellformular</h1>
+      <form id="orderForm">
+        <div class="form-group">
+          <label for="firstName">Vorname:</label>
+          <input type="text" id="firstName" required />
+        </div>
+        <div class="form-group">
+          <label for="lastName">Nachname:</label>
+          <input type="text" id="lastName" required />
+        </div>
+        <div class="form-group">
+          <label for="address">Adresse:</label>
+          <input type="text" id="address" required />
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail:</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label for="quantity">Anzahl Handys:</label>
+          <input type="number" id="quantity" value="1" min="1" required />
+        </div>
+        <div class="form-group">
+          <label for="price">Preis pro Handy (€):</label>
+          <input type="number" id="price" value="500" readonly />
+        </div>
+        <button type="button" class="btn" onclick="submitOrder()">
+          Bestellen
+        </button>
+      </form>
+      <div id="orderConfirmation">
+        <h2>Bestellbestätigung</h2>
+        <p id="confirmationDetails"></p>
+      </div>
+    </div>
+
+    <script>
+      function submitOrder() {
+        // Collect form data
+        const firstName = document.getElementById("firstName").value;
+        const lastName = document.getElementById("lastName").value;
+        const address = document.getElementById("address").value;
+        const email = document.getElementById("email").value;
+        const quantity = parseInt(document.getElementById("quantity").value);
+        const price = parseInt(document.getElementById("price").value);
+        const totalCost = quantity * price;
+
+        // Display confirmation
+        document.getElementById("confirmationDetails").innerHTML = `
+        Vielen Dank für Ihre Bestellung, <b>${firstName} ${lastName}</b>!<br>
+        Adresse: ${address}<br>
+        E-Mail: ${email}<br>
+        Bestellte Anzahl: ${quantity} Handys<br>
+        Gesamtkosten: <b>${totalCost} €</b>
+      `;
+        document.getElementById("orderConfirmation").style.display = "block";
+      }
+    </script>
+  </body>
+</html>
